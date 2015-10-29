@@ -27,6 +27,11 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="de.sqrls.ttn.gwsc.gateways.GatewayListActivity" />
         </activity>
+        <provider
+            android:authorities="@string/config_ttnprovider_authority"
+            android:name=".provider.TTNProvider"
+            android:exported="true"
+            />
     </application>
 
 </manifest>
