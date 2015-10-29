@@ -28,7 +28,7 @@ android {
         versionName "${versionMajor}.${versionMinor}" + ((versionPatch != 0) ? ".${versionPatch}" : "")
 
         applicationId "de.sqrls.ttn.gwsc"
-        minSdkVersion 21
+        minSdkVersion 20
         targetSdkVersion 22
         versionCode 1
         versionName "1.0"
