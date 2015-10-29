@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Gateway Status</string>
+    <string name="title_gateway_detail">Gateway Detail</string>
+</resources>
