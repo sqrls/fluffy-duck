@@ -1,22 +1,64 @@
 apply plugin: 'com.android.application'
 
+def versionMajor = 0
+def versionMinor = 1
+def versionPatch = 0
+def versionBuild = 0
+
+def gitSha() {
+    def res = 'git rev-parse HEAD'.execute([], project.rootDir).text.trim()
+
+    def diff = 'git diff'.execute([], project.rootDir).text.trim()
+    if (diff != null && diff.length() > 0) {
+        res += "-dirty"
+    }
+
+    return res
+}
+
+
 android {
     compileSdkVersion 22
     buildToolsVersion "22.0.1"
 
     defaultConfig {
-        applicationId "gwsc.ttn.sqrls.de.gatewaystatus"
+        //versioning stuff
+        buildConfigField "String", "GIT_SHA", "\"${gitSha()}\""
+        versionCode versionMajor * 10000 + versionMinor * 1000 + versionPatch * 100 + versionBuild
+        versionName "${versionMajor}.${versionMinor}" + ((versionPatch != 0) ? ".${versionPatch}" : "")
+
+        applicationId "de.sqrls.ttn.gwsc"
         minSdkVersion 21
         targetSdkVersion 22
         versionCode 1
         versionName "1.0"
     }
+
+    //might be overkill, but is how I roll
+    productFlavors {
+        prod {
+            applicationId = "de.sqrls.ttn.gwsc"
+        }
+        staging {
+            applicationId = "de.sqrls.ttn.gwsc.staging"
+        }
+    }
+
     buildTypes {
+
+        debug {
+            applicationIdSuffix ".debug"
+            //signingConfig signingConfigs.debug
+            versionNameSuffix "-debug"
+        }
+
+
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
 }
 
 dependencies {
