@@ -9,7 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import gwsc.ttn.sqrls.de.gatewaystatus.R;
+import de.sqrls.ttn.gwsc.R;
+
 
 /**
  * A fragment representing a single Gateway detail screen.

@@ -10,7 +10,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.ActionBar;
 import android.view.MenuItem;
 
-import gwsc.ttn.sqrls.de.gatewaystatus.R;
+import de.sqrls.ttn.gwsc.R;
+
 
 /**
  * An activity representing a single Gateway detail screen. This

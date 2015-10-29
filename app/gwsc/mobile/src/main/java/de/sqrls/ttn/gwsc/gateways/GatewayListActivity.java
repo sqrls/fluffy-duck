@@ -15,9 +15,11 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 
-import gwsc.ttn.sqrls.de.gatewaystatus.R;
+
 
 import java.util.List;
+
+import de.sqrls.ttn.gwsc.R;
 
 /**
  * An activity representing a list of Gateways. This activity
