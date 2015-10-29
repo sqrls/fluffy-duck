@@ -1,4 +1,4 @@
-package gwsc.ttn.sqrls.de.gatewaystatus;
+package de.sqrls.ttn.gwsc.gateways;
 
 import android.app.Activity;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import gwsc.ttn.sqrls.de.gatewaystatus.dummy.DummyContent;
+import gwsc.ttn.sqrls.de.gatewaystatus.R;
 
 /**
  * A fragment representing a single Gateway detail screen.

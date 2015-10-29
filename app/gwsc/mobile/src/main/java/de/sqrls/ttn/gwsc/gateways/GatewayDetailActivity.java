@@ -1,4 +1,4 @@
-package gwsc.ttn.sqrls.de.gatewaystatus;
+package de.sqrls.ttn.gwsc.gateways;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,6 +9,8 @@ import android.view.View;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.ActionBar;
 import android.view.MenuItem;
+
+import gwsc.ttn.sqrls.de.gatewaystatus.R;
 
 /**
  * An activity representing a single Gateway detail screen. This

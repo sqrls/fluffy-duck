@@ -9,5 +9,5 @@
     android:layout_marginLeft="16dp"
     android:layout_marginRight="16dp"
     app:layoutManager="LinearLayoutManager"
-    tools:context="gwsc.ttn.sqrls.de.gatewaystatus.GatewayListActivity"
+    tools:context="de.sqrls.ttn.gwsc.gateways.GatewayListActivity"
     tools:listitem="@layout/gateway_list_content" />
