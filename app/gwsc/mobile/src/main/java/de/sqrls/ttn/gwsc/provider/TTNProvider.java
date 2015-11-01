@@ -73,7 +73,7 @@ public class TTNProvider extends ContentProvider {
         int modrows = -1;
         switch (uriMatcher.match(uri)){
             case GATEWAYS_ALL:
-                modrows = sqlHelper.getWritableDatabase().delete(SQLHelper.TABLE_GATEWAYS,whereClause,whereArgs);
+                modrows = sqlHelper.getWritableDatabase().delete(SQLHelper.TABLE_GATEWAYS, whereClause, whereArgs);
                 return modrows;
         }
         return 0;
@@ -84,17 +84,31 @@ public class TTNProvider extends ContentProvider {
         int modrows = -1;
         switch (uriMatcher.match(uri)){
             case GATEWAYS_ALL:
+                return upsert(uri,contentValues,whereClause,whereArgs);
+        }
+        return 0;
+
+    }
+
+    private int upsert(Uri uri, ContentValues contentValues,  String whereClause, String[] whereArgs) {
+        int modrows = -1;
+        switch (uriMatcher.match(uri)){
+            case GATEWAYS_ALL:
                 modrows = sqlHelper.getWritableDatabase().update(
                         SQLHelper.TABLE_GATEWAYS,
                         contentValues,
                         whereClause,
                         whereArgs
                 );
+                if(modrows==0){
+                    return insert(uri,contentValues)!=null?1:0;
+                }
                 return modrows;
         }
         return 0;
 
     }
+
 
     private static final UriMatcher uriMatcher;
 

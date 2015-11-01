@@ -14,6 +14,7 @@ public class TTNProviderTests extends ProviderTestCase2 {
     static final String LON ="-51.958591";
     static final String ALT ="100";
     private static final String GW_EUI = "test123";
+    private static final String GW_EUI_2 = "upsert0123";
     private static final String LOG_TAG = TTNProviderTests.class.getSimpleName();
 
     public TTNProviderTests() {
@@ -28,6 +29,7 @@ public class TTNProviderTests extends ProviderTestCase2 {
         insert();
         query();
         update();
+        upsert();
         delete();
 
     }
@@ -43,7 +45,7 @@ public class TTNProviderTests extends ProviderTestCase2 {
         values.put(GatewayColumns.GW_STATUS,"up");
         values.put(GatewayColumns.LAST_SEEN,String.valueOf(currentTime));
         values.put(GatewayColumns.GW_CREATED_AT,String.valueOf(currentTime));
-        values.put(GatewayColumns.GW_UPDATED_AT,String.valueOf(currentTime));
+        values.put(GatewayColumns.GW_UPDATED_AT, String.valueOf(currentTime));
         values.put(GatewayColumns.LOC_ALT, ALT);
         values.put(GatewayColumns.LOC_LAT, LAT);
         values.put(GatewayColumns.LOC_LON, LON);
@@ -56,7 +58,7 @@ public class TTNProviderTests extends ProviderTestCase2 {
 
 
     private void query() {
-        android.util.Log.d(LOG_TAG,"query");
+        android.util.Log.d(LOG_TAG, "query");
         Cursor cursor = getMockContentResolver().query(
             GatewayColumns.CONTENT_URI,
             GatewayColumns.DEFAULT_PROJECTION_MAP,
@@ -72,7 +74,31 @@ public class TTNProviderTests extends ProviderTestCase2 {
         cursor.close();
     }
 
-    private void update() {
+    private void upsert() {
+        android.util.Log.d(LOG_TAG,"update");
+        ContentValues values = new ContentValues();
+        final long currentTime = System.currentTimeMillis();
+        //We know it is not in db and assume it gets an insert, return as successful update
+        values.put(GatewayColumns.EUI,GW_EUI_2);
+        values.put(GatewayColumns.GW_STATUS,"up");
+        values.put(GatewayColumns.LAST_SEEN,String.valueOf(currentTime));
+        values.put(GatewayColumns.GW_CREATED_AT,String.valueOf(currentTime));
+        values.put(GatewayColumns.GW_UPDATED_AT,String.valueOf(currentTime));
+        values.put(GatewayColumns.LOC_ALT, ALT);
+        values.put(GatewayColumns.LOC_LAT, LAT);
+        values.put(GatewayColumns.LOC_LON, LON);
+
+        final int modrows=getMockContentResolver().update(
+                GatewayColumns.CONTENT_URI,
+                values,
+                GatewayColumns.EUI+" like'"+GW_EUI_2+"'"
+                ,null
+        );
+
+        assertTrue(1 == modrows);
+    }
+
+   private void update() {
         android.util.Log.d(LOG_TAG,"update");
         ContentValues values = new ContentValues();
         final long currentTime = System.currentTimeMillis();
@@ -99,6 +125,13 @@ public class TTNProviderTests extends ProviderTestCase2 {
         );
 
         assertTrue(1 == modrows);
+        final int modrows2=getMockContentResolver().delete(
+                GatewayColumns.CONTENT_URI,
+                GatewayColumns.EUI + " like'" + GW_EUI_2 + "'"
+                , null
+        );
+
+        assertTrue(1 == modrows2);
     }
 
 }
